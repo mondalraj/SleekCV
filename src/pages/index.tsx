@@ -1,6 +1,7 @@
 import IEducationDetails from "@/types/educationDetailsType";
 import IExperienceDetails from "@/types/experienceDetailsType";
 import IProfileDetails from "@/types/profileDetailsType";
+import IProjectsType from "@/types/projectsType";
 import ISkillsType from "@/types/skillsType";
 import {
   Box,
@@ -16,6 +17,7 @@ import "react-phone-number-input/style.css";
 import EducationSection from "./components/CVFormComponents/EducationSection";
 import ExperienceSection from "./components/CVFormComponents/ExperienceSection";
 import ProfileSection from "./components/CVFormComponents/ProfileSection";
+import ProjectSection from "./components/CVFormComponents/ProjectSection";
 import TechnicalSkillsSection from "./components/CVFormComponents/TechnicalSkillsSection";
 import PDFResume from "./components/PDFResume";
 
@@ -49,6 +51,17 @@ export default function Home() {
       start_date: "",
       end_date: "",
       description: [""],
+    },
+  ]);
+
+  const [projects, setProjects] = useState<IProjectsType[]>([
+    {
+      id: 1,
+      title: "",
+      description: [""],
+      duration: "",
+      link: "",
+      tech_stack: [""],
     },
   ]);
 
@@ -95,6 +108,7 @@ export default function Home() {
               education={education}
               experience={experience}
               skills={skills}
+              projects={projects}
             />
           </PDFViewer>
         </ScrollArea>
@@ -118,6 +132,8 @@ export default function Home() {
             experience={experience}
             setExperience={setExperience}
           />
+
+          <ProjectSection projects={projects} setProjects={setProjects} />
 
           <TechnicalSkillsSection skills={skills} setSkills={setSkills} />
 
@@ -163,6 +179,7 @@ export default function Home() {
                       education={education}
                       experience={experience}
                       skills={skills}
+                      projects={projects}
                     />
                   }
                   fileName={filename || "resume.pdf"}

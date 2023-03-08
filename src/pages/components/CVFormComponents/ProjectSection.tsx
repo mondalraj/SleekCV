@@ -1,13 +1,35 @@
-import IExperienceDetails from "@/types/experienceDetailsType";
-import { ActionIcon, Box, Text, TextInput, Tooltip } from "@mantine/core";
+import IProjectsType from "@/types/projectsType";
+import {
+  ActionIcon,
+  Box,
+  MultiSelect,
+  Text,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { useState } from "react";
 
 interface IProps {
-  experience: IExperienceDetails[];
-  setExperience: (experience: IExperienceDetails[]) => void;
+  projects: IProjectsType[];
+  setProjects: (projects: IProjectsType[]) => void;
 }
 
-const ExperienceSection = ({ experience, setExperience }: IProps) => {
+const ProjectSection = ({ projects, setProjects }: IProps) => {
+  const [options, setOptions] = useState([
+    { value: "Java", label: "Java" },
+    { value: "Python", label: "Python" },
+    { value: "C/C++", label: "C/C++" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "React", label: "React" },
+    { value: "Node.js", label: "Node.js" },
+    { value: "Django", label: "Django" },
+    { value: "Angular", label: "Angular" },
+    { value: "SQL", label: "SQL" },
+    { value: "Mongo DB", label: "Mongo DB" },
+    { value: "Redis", label: "Redis" },
+    { value: "Dynamo DB", label: "Dynamo DB" },
+  ]);
   return (
     <>
       <Box
@@ -20,25 +42,24 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
           padding: "0.5rem 0",
         }}
       >
-        <Text>Experience Details</Text>
-        <Tooltip label="Add Experience" withArrow>
+        <Text>Projects Details</Text>
+        <Tooltip label="Add Project" withArrow>
           <ActionIcon
             color="blue"
             size="md"
             radius="xl"
             variant="light"
-            disabled={experience.length === 7}
+            disabled={projects.length === 7}
             onClick={() => {
-              setExperience([
-                ...experience,
+              setProjects([
+                ...projects,
                 {
                   id: Math.random(),
-                  company: "",
                   title: "",
-                  location: "",
                   description: [""],
-                  start_date: "",
-                  end_date: "",
+                  duration: "",
+                  link: "",
+                  tech_stack: [""],
                 },
               ]);
             }}
@@ -47,7 +68,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
           </ActionIcon>
         </Tooltip>
       </Box>
-      {experience.map((exp, index) => (
+      {projects.map((proj, index) => (
         <Box
           key={index + 1}
           sx={{
@@ -68,18 +89,16 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               alignItems: "center",
             }}
           >
-            <Text>Experience No. {index + 1}</Text>
-            {experience.length > 1 && (
-              <Tooltip label="Remove Experience" withArrow>
+            <Text>Project No. {index + 1}</Text>
+            {projects.length > 1 && (
+              <Tooltip label="Remove Project" withArrow>
                 <ActionIcon
                   color="red"
                   size="md"
                   radius="xl"
                   variant="light"
                   onClick={() => {
-                    setExperience(
-                      experience.filter((item) => item.id !== exp.id)
-                    );
+                    setProjects(projects.filter((item) => item.id !== proj.id));
                   }}
                 >
                   <IconMinus size="16" />
@@ -88,18 +107,47 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
             )}
           </Box>
           <TextInput
-            placeholder="Eg. software engineer"
-            label="Title of Qualification"
+            placeholder="Name of Project"
+            label="Title of Project"
             variant="filled"
             required
-            value={exp.title}
+            value={proj.title}
             onChange={(e) => {
-              setExperience(
-                experience.map((item) => {
-                  if (item.id === exp.id) {
+              setProjects(
+                projects.map((item) => {
+                  if (item.id === proj.id) {
                     return {
                       ...item,
                       title: e.target.value,
+                    };
+                  }
+                  return item;
+                })
+              );
+            }}
+          />
+          <MultiSelect
+            label="Technologies Used"
+            data={options}
+            required
+            variant="filled"
+            placeholder="Select technologies used in this project (You can even create new ones just by typing)"
+            searchable
+            creatable
+            getCreateLabel={(query) => `+ Create ${query}`}
+            onCreate={(query) => {
+              const item = { value: query, label: query };
+              setOptions((current) => [...current, item]);
+              return item;
+            }}
+            value={proj.tech_stack}
+            onChange={(value) => {
+              setProjects(
+                projects.map((item) => {
+                  if (item.id === proj.id) {
+                    return {
+                      ...item,
+                      tech_stack: value,
                     };
                   }
                   return item;
@@ -119,18 +167,18 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               sx={{
                 width: "50%",
               }}
-              placeholder="Eg. Microsoft"
-              label="Company Name"
+              placeholder="Eg. Aug 2019 - Dec 2019"
+              label="Project Duration"
               variant="filled"
               required
-              value={exp.company}
+              value={proj.duration}
               onChange={(e) => {
-                setExperience(
-                  experience.map((item) => {
-                    if (item.id === exp.id) {
+                setProjects(
+                  projects.map((item) => {
+                    if (item.id === proj.id) {
                       return {
                         ...item,
-                        company: e.target.value,
+                        duration: e.target.value,
                       };
                     }
                     return item;
@@ -142,73 +190,19 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               sx={{
                 width: "50%",
               }}
-              placeholder="Eg. Gurgaon, India"
-              label="Working Location"
+              placeholder="Live Link or Github Link of your project"
+              label="Project Link"
               variant="filled"
+              type="url"
               required
-              value={exp.location}
+              value={proj.link}
               onChange={(e) => {
-                setExperience(
-                  experience.map((item) => {
-                    if (item.id === exp.id) {
+                setProjects(
+                  projects.map((item) => {
+                    if (item.id === proj.id) {
                       return {
                         ...item,
-                        location: e.target.value,
-                      };
-                    }
-                    return item;
-                  })
-                );
-              }}
-            />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 10,
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <TextInput
-              sx={{
-                width: "50%",
-              }}
-              placeholder="Eg. Aug 2019"
-              label="Start Date"
-              variant="filled"
-              required
-              value={exp.start_date}
-              onChange={(e) => {
-                setExperience(
-                  experience.map((item) => {
-                    if (item.id === exp.id) {
-                      return {
-                        ...item,
-                        start_date: e.target.value,
-                      };
-                    }
-                    return item;
-                  })
-                );
-              }}
-            />
-            <TextInput
-              sx={{
-                width: "50%",
-              }}
-              placeholder="Eg. Aug 2022 or Present(if still working)"
-              label="End Date"
-              variant="filled"
-              required
-              value={exp.end_date}
-              onChange={(e) => {
-                setExperience(
-                  experience.map((item) => {
-                    if (item.id === exp.id) {
-                      return {
-                        ...item,
-                        end_date: e.target.value,
+                        link: e.target.value,
                       };
                     }
                     return item;
@@ -229,8 +223,8 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               alignItems: "center",
             }}
           >
-            <Text>Write Description about your work experience</Text>
-            {exp.description.length <= 5 && (
+            <Text>Write Description about your project</Text>
+            {proj.description.length <= 5 && (
               <Tooltip label="Add Description Line" withArrow>
                 <ActionIcon
                   color="gray"
@@ -238,9 +232,9 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                   radius="xl"
                   variant="light"
                   onClick={() => {
-                    setExperience(
-                      experience.map((item) => {
-                        if (item.id === exp.id) {
+                    setProjects(
+                      projects.map((item) => {
+                        if (item.id === proj.id) {
                           return {
                             ...item,
                             description: [...item.description, ""],
@@ -256,7 +250,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               </Tooltip>
             )}
           </Box>
-          {exp.description.map((desc, index) => (
+          {proj.description.map((desc, index) => (
             <Box
               sx={{
                 display: "flex",
@@ -275,11 +269,11 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                 } (Eg. Worked on a project to build a website for a client)`}
                 variant="filled"
                 required
-                value={exp.description[index]}
+                value={proj.description[index]}
                 onChange={(e) => {
-                  setExperience(
-                    experience.map((item) => {
-                      if (item.id === exp.id) {
+                  setProjects(
+                    projects.map((item) => {
+                      if (item.id === proj.id) {
                         return {
                           ...item,
                           description: item.description.map((des, i) => {
@@ -295,7 +289,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                   );
                 }}
               />
-              {exp.description.length > 1 && (
+              {proj.description.length > 1 && (
                 <Tooltip label="Remove Description Line" withArrow>
                   <ActionIcon
                     color="red"
@@ -303,9 +297,9 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                     radius="xl"
                     variant="light"
                     onClick={() => {
-                      setExperience(
-                        experience.map((item) => {
-                          if (item.id === exp.id) {
+                      setProjects(
+                        projects.map((item) => {
+                          if (item.id === proj.id) {
                             return {
                               ...item,
                               description: item.description.filter(
@@ -330,4 +324,4 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
   );
 };
 
-export default ExperienceSection;
+export default ProjectSection;

@@ -1,6 +1,7 @@
 import IEducationDetails from "@/types/educationDetailsType";
 import IExperienceDetails from "@/types/experienceDetailsType";
 import IProfileDetails from "@/types/profileDetailsType";
+import IProjectsType from "@/types/projectsType";
 import ISkillsType from "@/types/skillsType";
 import {
   Document,
@@ -16,10 +17,17 @@ interface IProps {
   profile: IProfileDetails;
   education: IEducationDetails[];
   experience: IExperienceDetails[];
+  projects: IProjectsType[];
   skills: ISkillsType;
 }
 
-const PDFResume = ({ profile, education, experience, skills }: IProps) => {
+const PDFResume = ({
+  profile,
+  education,
+  experience,
+  projects,
+  skills,
+}: IProps) => {
   return (
     <Document>
       <Page style={styles.body}>
@@ -40,7 +48,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
               justifyContent: "center",
               alignItems: "center",
               gap: 5,
-              fontSize: 9,
+              fontSize: 11,
               color: "black",
             }}
           >
@@ -96,7 +104,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
         <View>
           <Text
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: "light",
               marginTop: 10,
               borderBottom: "0.5px solid gray",
@@ -127,14 +135,14 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                 >
                   <Text
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontFamily: "Times Roman Bold",
                     }}
                   >
                     {edu?.institution || "No Institution"}
                   </Text>
                   <Text
-                    style={{ fontSize: 10, fontFamily: "Times Roman Bold" }}
+                    style={{ fontSize: 11, fontFamily: "Times Roman Bold" }}
                   >
                     {edu?.location || "No Location"}
                   </Text>
@@ -146,7 +154,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginTop: 3,
-                    fontSize: 9,
+                    fontSize: 11,
                     fontWeight: "extrabold",
                   }}
                 >
@@ -160,7 +168,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
         <View>
           <Text
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: "light",
               marginTop: 8,
               borderBottom: "0.5px solid gray",
@@ -191,14 +199,14 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                 >
                   <Text
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontFamily: "Times Roman Bold",
                     }}
                   >
                     {exp?.title || "No Title"}
                   </Text>
                   <Text
-                    style={{ fontSize: 10, fontFamily: "Times Roman Bold" }}
+                    style={{ fontSize: 11, fontFamily: "Times Roman Bold" }}
                   >
                     {`${exp?.start_date} - ${exp?.end_date}` || "No Duration"}
                   </Text>
@@ -210,7 +218,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginTop: 3,
-                    fontSize: 9,
+                    fontSize: 11,
                   }}
                 >
                   <Text>{exp?.company || "No Company"}</Text>
@@ -225,7 +233,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                       justifyContent: "flex-start",
                       alignItems: "flex-start",
                       marginTop: 3,
-                      fontSize: 9,
+                      fontSize: 11,
                       paddingHorizontal: 10,
                     }}
                   >
@@ -252,7 +260,108 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
         <View>
           <Text
             style={{
-              fontSize: 10,
+              fontSize: 12,
+              fontWeight: "light",
+              marginTop: 8,
+              borderBottom: "0.5px solid gray",
+              paddingBottom: 2,
+            }}
+          >
+            PROJECTS
+          </Text>
+          <View
+            style={{
+              paddingHorizontal: 10,
+            }}
+          >
+            {projects?.map((proj, index) => (
+              <View
+                style={{
+                  marginVertical: 5,
+                }}
+                key={index + 1}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 11,
+                        fontFamily: "Times Roman Bold",
+                      }}
+                    >
+                      {proj?.title || "No Title"}
+                    </Text>
+
+                    <Text
+                      style={{
+                        fontSize: 11,
+                        fontFamily: "Times Roman",
+                        marginLeft: 5,
+                        paddingLeft: 5,
+                        borderLeft: "0.5px solid gray",
+                      }}
+                    >
+                      {proj?.tech_stack?.join(", ") || "No Technologies Used"}
+                    </Text>
+                  </View>
+                  <Text
+                    style={{ fontSize: 11, fontFamily: "Times Roman Bold" }}
+                  >
+                    {proj.duration || "No Duration"}
+                  </Text>
+                </View>
+
+                {proj?.description?.map((desc, index) => (
+                  <View
+                    key={index + 1}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
+                      alignItems: "flex-start",
+                      marginTop: 3,
+                      fontSize: 11,
+                      paddingHorizontal: 10,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        marginRight: 5,
+                      }}
+                    >
+                      •
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "justify",
+                      }}
+                    >
+                      {desc || `No Description in line ${index + 1}`}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            ))}
+          </View>
+        </View>
+        <View>
+          <Text
+            style={{
+              fontSize: 12,
               fontWeight: "light",
               marginTop: 8,
               borderBottom: "0.5px solid gray",
@@ -273,7 +382,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
                 gap: 5,
-                fontSize: 9,
+                fontSize: 11,
                 marginTop: 5,
                 marginBottom: 2,
               }}
@@ -294,7 +403,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
                 gap: 5,
-                fontSize: 9,
+                fontSize: 11,
                 marginBottom: 2,
               }}
             >
@@ -317,7 +426,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
                 gap: 5,
-                fontSize: 9,
+                fontSize: 11,
                 marginBottom: 2,
               }}
             >
@@ -337,7 +446,7 @@ const PDFResume = ({ profile, education, experience, skills }: IProps) => {
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
                 gap: 5,
-                fontSize: 9,
+                fontSize: 11,
                 marginBottom: 2,
               }}
             >

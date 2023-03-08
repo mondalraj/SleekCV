@@ -33,7 +33,7 @@ const EducationSection = ({ education, setEducation }: IProps) => {
               setEducation([
                 ...education,
                 {
-                  id: education.length + 1,
+                  id: Math.random(),
                   institution: "",
                   title: "",
                   location: "",
