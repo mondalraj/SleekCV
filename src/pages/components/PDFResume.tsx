@@ -1,5 +1,6 @@
 import {
   Document,
+  Font,
   Link,
   Page,
   StyleSheet,
@@ -34,6 +35,7 @@ const PDFResume = ({ profile, education }: IProps) => {
               textAlign: "center",
               fontSize: 22,
               marginBottom: 5,
+              fontFamily: "Times Roman Bold",
             }}
           >
             {profile?.name || "No Name"}
@@ -129,10 +131,17 @@ const PDFResume = ({ profile, education }: IProps) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={{ fontSize: 10, fontWeight: 700 }}>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontFamily: "Times Roman Bold",
+                    }}
+                  >
                     {edu?.institution || "No Institution"}
                   </Text>
-                  <Text style={{ fontSize: 10, fontWeight: 400 }}>
+                  <Text
+                    style={{ fontSize: 10, fontFamily: "Times Roman Bold" }}
+                  >
                     {edu?.location || "No Location"}
                   </Text>
                 </View>
@@ -159,18 +168,22 @@ const PDFResume = ({ profile, education }: IProps) => {
   );
 };
 
-// Font.register({
-//   family: "Courier",
-//   //   src: "https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf",
-//   src: "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@200;300;400;600;700&display=swap",
-// });
+Font.register({
+  family: "Times Roman",
+  src: "/times-roman.ttf",
+});
+
+Font.register({
+  family: "Times Roman Bold",
+  src: "/times-roman-bold.ttf",
+});
 
 const styles = StyleSheet.create({
   body: {
     paddingTop: 20,
     paddingBottom: 20,
     paddingHorizontal: 20,
-    // fontFamily: "Courier",
+    fontFamily: "Times Roman",
   },
 });
 
