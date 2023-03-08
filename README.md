@@ -8,6 +8,7 @@ Features of SleekCV
 - Google Authentication Security (Easy Login)
 - 2 different CV templates
 - 2 different Font Family (Times Roman and Helvetica)
+- Integrating GPT-3 API for generating CVs and Suggesting a better CV
 
 ### Database Schema of CV
 
