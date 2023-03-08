@@ -1,6 +1,7 @@
 import IEducationDetails from "@/types/educationDetailsType";
 import IExperienceDetails from "@/types/experienceDetailsType";
 import IProfileDetails from "@/types/profileDetailsType";
+import ISkillsType from "@/types/skillsType";
 import {
   Box,
   Button,
@@ -15,6 +16,7 @@ import "react-phone-number-input/style.css";
 import EducationSection from "./components/CVFormComponents/EducationSection";
 import ExperienceSection from "./components/CVFormComponents/ExperienceSection";
 import ProfileSection from "./components/CVFormComponents/ProfileSection";
+import TechnicalSkillsSection from "./components/CVFormComponents/TechnicalSkillsSection";
 import PDFResume from "./components/PDFResume";
 
 export default function Home() {
@@ -49,6 +51,13 @@ export default function Home() {
       description: [""],
     },
   ]);
+
+  const [skills, setSkills] = useState<ISkillsType>({
+    languages: [""],
+    frameworks_libraries: [""],
+    databases: [""],
+    developer_tools: [""],
+  });
 
   const [isClient, setIsClient] = useState(false);
 
@@ -85,6 +94,7 @@ export default function Home() {
               profile={profile}
               education={education}
               experience={experience}
+              skills={skills}
             />
           </PDFViewer>
         </ScrollArea>
@@ -108,6 +118,8 @@ export default function Home() {
             experience={experience}
             setExperience={setExperience}
           />
+
+          <TechnicalSkillsSection skills={skills} setSkills={setSkills} />
 
           <Box
             sx={{
@@ -150,6 +162,7 @@ export default function Home() {
                       profile={profile}
                       education={education}
                       experience={experience}
+                      skills={skills}
                     />
                   }
                   fileName={filename || "resume.pdf"}

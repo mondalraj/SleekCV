@@ -1,6 +1,7 @@
 import IEducationDetails from "@/types/educationDetailsType";
 import IExperienceDetails from "@/types/experienceDetailsType";
 import IProfileDetails from "@/types/profileDetailsType";
+import ISkillsType from "@/types/skillsType";
 import {
   Document,
   Font,
@@ -15,9 +16,10 @@ interface IProps {
   profile: IProfileDetails;
   education: IEducationDetails[];
   experience: IExperienceDetails[];
+  skills: ISkillsType;
 }
 
-const PDFResume = ({ profile, education, experience }: IProps) => {
+const PDFResume = ({ profile, education, experience, skills }: IProps) => {
   return (
     <Document>
       <Page style={styles.body}>
@@ -105,7 +107,7 @@ const PDFResume = ({ profile, education, experience }: IProps) => {
           </Text>
           <View
             style={{
-              paddingHorizontal: 5,
+              paddingHorizontal: 10,
             }}
           >
             {education?.map((edu, index) => (
@@ -169,7 +171,7 @@ const PDFResume = ({ profile, education, experience }: IProps) => {
           </Text>
           <View
             style={{
-              paddingHorizontal: 5,
+              paddingHorizontal: 10,
             }}
           >
             {experience?.map((exp, index) => (
@@ -245,6 +247,111 @@ const PDFResume = ({ profile, education, experience }: IProps) => {
                 ))}
               </View>
             ))}
+          </View>
+        </View>
+        <View>
+          <Text
+            style={{
+              fontSize: 10,
+              fontWeight: "light",
+              marginTop: 8,
+              borderBottom: "0.5px solid gray",
+              paddingBottom: 2,
+            }}
+          >
+            TECHNICAL SKILLS
+          </Text>
+          <View
+            style={{
+              paddingHorizontal: 10,
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                gap: 5,
+                fontSize: 9,
+                marginTop: 5,
+                marginBottom: 2,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Times Roman Bold",
+                }}
+              >
+                Languages:
+              </Text>
+              <Text>{skills?.languages?.join(", ") || "No Languages"}</Text>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                gap: 5,
+                fontSize: 9,
+                marginBottom: 2,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Times Roman Bold",
+                }}
+              >
+                Frameworks & Libraries:
+              </Text>
+              <Text>
+                {skills?.frameworks_libraries?.join(", ") ||
+                  "No Frameworks & Libraries"}
+              </Text>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                gap: 5,
+                fontSize: 9,
+                marginBottom: 2,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Times Roman Bold",
+                }}
+              >
+                Databases:
+              </Text>
+              <Text>{skills?.databases?.join(", ") || "No Databases"}</Text>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                gap: 5,
+                fontSize: 9,
+                marginBottom: 2,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Times Roman Bold",
+                }}
+              >
+                Developer Tools:
+              </Text>
+              <Text>
+                {skills?.developer_tools?.join(", ") || "No Developer Tools"}
+              </Text>
+            </View>
           </View>
         </View>
       </Page>
