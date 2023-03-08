@@ -3,12 +3,13 @@ import {
   Box,
   Button,
   Container,
-  Modal,
+  Drawer,
+  ScrollArea,
   Text,
   TextInput,
   Tooltip,
 } from "@mantine/core";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
@@ -17,6 +18,7 @@ import PDFResume from "./components/PDFResume";
 
 export default function Home() {
   const [PDFPreviewOpened, setPDFPreviewOpened] = useState(false);
+  const [filename, setFilename] = useState("");
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -35,24 +37,33 @@ export default function Home() {
   ]);
   return (
     <>
-      <Modal
+      <Drawer
         opened={PDFPreviewOpened}
-        onClose={() => setPDFPreviewOpened(false)}
+        onClose={() => {
+          setPDFPreviewOpened(false);
+        }}
         title="Previewing your Resume"
-        fullScreen
-        zIndex={1000}
+        padding="xl"
+        size="100%"
+        position="right"
+        style={{
+          zIndex: 1000,
+          overflow: "hidden",
+        }}
       >
-        <PDFViewer
-          style={{
-            width: "100%",
-            height: "calc(100vh - 150px)",
-            borderRadius: "0.5rem",
-            border: "none",
-          }}
-        >
-          <PDFResume />
-        </PDFViewer>
-      </Modal>
+        <ScrollArea sx={{ height: `calc(100vh - 110px)` }} type="never">
+          <PDFViewer
+            style={{
+              width: "100%",
+              height: "calc(100vh - 110px)",
+              borderRadius: "0.5rem",
+              border: "none",
+            }}
+          >
+            <PDFResume profile={profile} education={education} />
+          </PDFViewer>
+        </ScrollArea>
+      </Drawer>
       <Container>
         <form
           style={{
@@ -212,9 +223,9 @@ export default function Home() {
               </ActionIcon>
             </Tooltip>
           </Box>
-          {education.map((edu) => (
+          {education.map((edu, index) => (
             <Box
-              key={edu.id}
+              key={index + 1}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -233,7 +244,7 @@ export default function Home() {
                   alignItems: "center",
                 }}
               >
-                <Text>Qualification No. {edu.id}</Text>
+                <Text>Qualification No. {index + 1}</Text>
                 {education.length > 1 && (
                   <Tooltip label="Remove Education Qualification" withArrow>
                     <ActionIcon
@@ -277,6 +288,20 @@ export default function Home() {
                 label="Title of Qualification"
                 variant="filled"
                 required
+                value={edu.title}
+                onChange={(e) => {
+                  setEducation(
+                    education.map((item) => {
+                      if (item.id === edu.id) {
+                        return {
+                          ...item,
+                          title: e.target.value,
+                        };
+                      }
+                      return item;
+                    })
+                  );
+                }}
               />
               <Box
                 sx={{
@@ -294,6 +319,20 @@ export default function Home() {
                   label="Location of Institution"
                   variant="filled"
                   required
+                  value={edu.location}
+                  onChange={(e) => {
+                    setEducation(
+                      education.map((item) => {
+                        if (item.id === edu.id) {
+                          return {
+                            ...item,
+                            location: e.target.value,
+                          };
+                        }
+                        return item;
+                      })
+                    );
+                  }}
                 />
                 <TextInput
                   sx={{
@@ -303,6 +342,20 @@ export default function Home() {
                   label="Period of Qualification"
                   variant="filled"
                   required
+                  value={edu.period}
+                  onChange={(e) => {
+                    setEducation(
+                      education.map((item) => {
+                        if (item.id === edu.id) {
+                          return {
+                            ...item,
+                            period: e.target.value,
+                          };
+                        }
+                        return item;
+                      })
+                    );
+                  }}
                 />
               </Box>
             </Box>
@@ -312,17 +365,47 @@ export default function Home() {
               display: "flex",
               justifyContent: "flex-end",
               gap: "1rem",
+              paddingTop: "1rem",
+              marginTop: "2rem",
+              borderTop: "1px solid #eaeaea",
             }}
           >
+            <TextInput
+              sx={{
+                width: "100%",
+              }}
+              placeholder="Filename for downloading (Eg. resume.pdf)"
+              variant="filled"
+              value={filename}
+              onChange={(e) => {
+                setFilename(e.target.value);
+              }}
+            />
             <Button
               color="blue"
               radius={"xs"}
               variant="outline"
               onClick={() => {
+                console.log("profile", profile);
+                console.log("education", education);
                 setPDFPreviewOpened(true);
               }}
             >
               Preview Resume
+            </Button>
+            <Button color="green" radius={"xs"} variant="filled">
+              <PDFDownloadLink
+                document={<PDFResume profile={profile} education={education} />}
+                fileName={filename || "resume.pdf"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "Download Resume"
+                }
+              </PDFDownloadLink>
             </Button>
           </Box>
         </form>
