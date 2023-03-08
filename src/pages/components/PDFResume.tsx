@@ -321,7 +321,7 @@ const PDFResume = ({
                   <Text
                     style={{ fontSize: 11, fontFamily: "Times Roman Bold" }}
                   >
-                    {proj.duration || "No Duration"}
+                    {proj?.duration || "No Duration"}
                   </Text>
                 </View>
 

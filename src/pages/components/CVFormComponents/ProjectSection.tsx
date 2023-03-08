@@ -49,7 +49,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
             size="md"
             radius="xl"
             variant="light"
-            disabled={projects.length === 7}
+            disabled={projects?.length === 7}
             onClick={() => {
               setProjects([
                 ...projects,
@@ -68,7 +68,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
           </ActionIcon>
         </Tooltip>
       </Box>
-      {projects.map((proj, index) => (
+      {projects?.map((proj, index) => (
         <Box
           key={index + 1}
           sx={{
@@ -90,7 +90,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
             }}
           >
             <Text>Project No. {index + 1}</Text>
-            {projects.length > 1 && (
+            {projects?.length > 1 && (
               <Tooltip label="Remove Project" withArrow>
                 <ActionIcon
                   color="red"
@@ -98,7 +98,9 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
                   radius="xl"
                   variant="light"
                   onClick={() => {
-                    setProjects(projects.filter((item) => item.id !== proj.id));
+                    setProjects(
+                      projects?.filter((item) => item.id !== proj.id)
+                    );
                   }}
                 >
                   <IconMinus size="16" />
@@ -111,10 +113,10 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
             label="Title of Project"
             variant="filled"
             required
-            value={proj.title}
+            value={proj?.title}
             onChange={(e) => {
               setProjects(
-                projects.map((item) => {
+                projects?.map((item) => {
                   if (item.id === proj.id) {
                     return {
                       ...item,
@@ -140,10 +142,10 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               setOptions((current) => [...current, item]);
               return item;
             }}
-            value={proj.tech_stack}
+            value={proj?.tech_stack}
             onChange={(value) => {
               setProjects(
-                projects.map((item) => {
+                projects?.map((item) => {
                   if (item.id === proj.id) {
                     return {
                       ...item,
@@ -171,10 +173,10 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               label="Project Duration"
               variant="filled"
               required
-              value={proj.duration}
+              value={proj?.duration}
               onChange={(e) => {
                 setProjects(
-                  projects.map((item) => {
+                  projects?.map((item) => {
                     if (item.id === proj.id) {
                       return {
                         ...item,
@@ -195,10 +197,10 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               variant="filled"
               type="url"
               required
-              value={proj.link}
+              value={proj?.link}
               onChange={(e) => {
                 setProjects(
-                  projects.map((item) => {
+                  projects?.map((item) => {
                     if (item.id === proj.id) {
                       return {
                         ...item,
@@ -224,7 +226,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
             }}
           >
             <Text>Write Description about your project</Text>
-            {proj.description.length <= 5 && (
+            {proj?.description.length <= 5 && (
               <Tooltip label="Add Description Line" withArrow>
                 <ActionIcon
                   color="gray"
@@ -233,7 +235,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
                   variant="light"
                   onClick={() => {
                     setProjects(
-                      projects.map((item) => {
+                      projects?.map((item) => {
                         if (item.id === proj.id) {
                           return {
                             ...item,
@@ -250,7 +252,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               </Tooltip>
             )}
           </Box>
-          {proj.description.map((desc, index) => (
+          {proj?.description?.map((desc, index) => (
             <Box
               sx={{
                 display: "flex",
@@ -269,10 +271,10 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
                 } (Eg. Worked on a project to build a website for a client)`}
                 variant="filled"
                 required
-                value={proj.description[index]}
+                value={proj?.description[index]}
                 onChange={(e) => {
                   setProjects(
-                    projects.map((item) => {
+                    projects?.map((item) => {
                       if (item.id === proj.id) {
                         return {
                           ...item,
@@ -289,7 +291,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
                   );
                 }}
               />
-              {proj.description.length > 1 && (
+              {proj?.description?.length > 1 && (
                 <Tooltip label="Remove Description Line" withArrow>
                   <ActionIcon
                     color="red"
@@ -298,7 +300,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
                     variant="light"
                     onClick={() => {
                       setProjects(
-                        projects.map((item) => {
+                        projects?.map((item) => {
                           if (item.id === proj.id) {
                             return {
                               ...item,

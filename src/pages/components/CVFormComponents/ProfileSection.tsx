@@ -27,7 +27,7 @@ const ProfileSection = ({ profile, setProfile }: IProps) => {
         onChange={(e) => {
           setProfile({ ...profile, name: e.target.value });
         }}
-        value={profile.name}
+        value={profile?.name}
       />
       <Box
         sx={{
@@ -49,7 +49,7 @@ const ProfileSection = ({ profile, setProfile }: IProps) => {
           onChange={(e) => {
             setProfile({ ...profile, email: e.target.value });
           }}
-          value={profile.email}
+          value={profile?.email}
         />
         <TextInput
           sx={{
@@ -63,7 +63,7 @@ const ProfileSection = ({ profile, setProfile }: IProps) => {
           onChange={(e) => {
             setProfile({ ...profile, linkedin: e.target.value });
           }}
-          value={profile.linkedin}
+          value={profile?.linkedin}
         />
       </Box>
 
@@ -102,7 +102,7 @@ const ProfileSection = ({ profile, setProfile }: IProps) => {
             defaultCountry="IN"
             limitMaxLength={true}
             international
-            value={profile.phone}
+            value={profile?.phone}
             onChange={(value) => {
               setProfile({ ...profile, phone: value as string });
             }}
@@ -121,7 +121,7 @@ const ProfileSection = ({ profile, setProfile }: IProps) => {
           onChange={(e) => {
             setProfile({ ...profile, github: e.target.value });
           }}
-          value={profile.github}
+          value={profile?.github}
         />
       </Box>
     </>

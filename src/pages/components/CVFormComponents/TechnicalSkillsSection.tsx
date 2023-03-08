@@ -64,7 +64,7 @@ const TechnicalSkillsSection = ({ skills, setSkills }: IProps) => {
           setLanguageOptions((current) => [...current, item]);
           return item;
         }}
-        value={skills.languages}
+        value={skills?.languages}
         onChange={(value) => {
           setSkills({
             ...skills,
@@ -87,7 +87,7 @@ const TechnicalSkillsSection = ({ skills, setSkills }: IProps) => {
           setFrameworkOptions((current) => [...current, item]);
           return item;
         }}
-        value={skills.frameworks_libraries}
+        value={skills?.frameworks_libraries}
         onChange={(value) => {
           setSkills({
             ...skills,
@@ -110,7 +110,7 @@ const TechnicalSkillsSection = ({ skills, setSkills }: IProps) => {
           setDatabaseOptions((current) => [...current, item]);
           return item;
         }}
-        value={skills.databases}
+        value={skills?.databases}
         onChange={(value) => {
           setSkills({
             ...skills,
@@ -133,7 +133,7 @@ const TechnicalSkillsSection = ({ skills, setSkills }: IProps) => {
           setToolOptions((current) => [...current, item]);
           return item;
         }}
-        value={skills.developer_tools}
+        value={skills?.developer_tools}
         onChange={(value) => {
           setSkills({
             ...skills,

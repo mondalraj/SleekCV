@@ -28,7 +28,7 @@ const EducationSection = ({ education, setEducation }: IProps) => {
             size="md"
             radius="xl"
             variant="light"
-            disabled={education.length === 3}
+            disabled={education?.length === 3}
             onClick={() => {
               setEducation([
                 ...education,
@@ -46,7 +46,7 @@ const EducationSection = ({ education, setEducation }: IProps) => {
           </ActionIcon>
         </Tooltip>
       </Box>
-      {education.map((edu, index) => (
+      {education?.map((edu, index) => (
         <Box
           key={index + 1}
           sx={{
@@ -68,7 +68,7 @@ const EducationSection = ({ education, setEducation }: IProps) => {
             }}
           >
             <Text>Qualification No. {index + 1}</Text>
-            {education.length > 1 && (
+            {education?.length > 1 && (
               <Tooltip label="Remove Education Qualification" withArrow>
                 <ActionIcon
                   color="red"
@@ -77,7 +77,7 @@ const EducationSection = ({ education, setEducation }: IProps) => {
                   variant="light"
                   onClick={() => {
                     setEducation(
-                      education.filter((item) => item.id !== edu.id)
+                      education?.filter((item) => item.id !== edu.id)
                     );
                   }}
                 >
@@ -91,10 +91,10 @@ const EducationSection = ({ education, setEducation }: IProps) => {
             label="Institution Name"
             variant="filled"
             required
-            value={edu.institution}
+            value={edu?.institution}
             onChange={(e) => {
               setEducation(
-                education.map((item) => {
+                education?.map((item) => {
                   if (item.id === edu.id) {
                     return {
                       ...item,
@@ -111,10 +111,10 @@ const EducationSection = ({ education, setEducation }: IProps) => {
             label="Title of Qualification"
             variant="filled"
             required
-            value={edu.title}
+            value={edu?.title}
             onChange={(e) => {
               setEducation(
-                education.map((item) => {
+                education?.map((item) => {
                   if (item.id === edu.id) {
                     return {
                       ...item,
@@ -142,10 +142,10 @@ const EducationSection = ({ education, setEducation }: IProps) => {
               label="Location of Institution"
               variant="filled"
               required
-              value={edu.location}
+              value={edu?.location}
               onChange={(e) => {
                 setEducation(
-                  education.map((item) => {
+                  education?.map((item) => {
                     if (item.id === edu.id) {
                       return {
                         ...item,
@@ -165,10 +165,10 @@ const EducationSection = ({ education, setEducation }: IProps) => {
               label="Period of Qualification"
               variant="filled"
               required
-              value={edu.period}
+              value={edu?.period}
               onChange={(e) => {
                 setEducation(
-                  education.map((item) => {
+                  education?.map((item) => {
                     if (item.id === edu.id) {
                       return {
                         ...item,

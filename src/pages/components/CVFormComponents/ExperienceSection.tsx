@@ -27,7 +27,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
             size="md"
             radius="xl"
             variant="light"
-            disabled={experience.length === 7}
+            disabled={experience?.length === 7}
             onClick={() => {
               setExperience([
                 ...experience,
@@ -47,7 +47,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
           </ActionIcon>
         </Tooltip>
       </Box>
-      {experience.map((exp, index) => (
+      {experience?.map((exp, index) => (
         <Box
           key={index + 1}
           sx={{
@@ -69,7 +69,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
             }}
           >
             <Text>Experience No. {index + 1}</Text>
-            {experience.length > 1 && (
+            {experience?.length > 1 && (
               <Tooltip label="Remove Experience" withArrow>
                 <ActionIcon
                   color="red"
@@ -78,7 +78,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                   variant="light"
                   onClick={() => {
                     setExperience(
-                      experience.filter((item) => item.id !== exp.id)
+                      experience?.filter((item) => item.id !== exp.id)
                     );
                   }}
                 >
@@ -92,10 +92,10 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
             label="Title of Qualification"
             variant="filled"
             required
-            value={exp.title}
+            value={exp?.title}
             onChange={(e) => {
               setExperience(
-                experience.map((item) => {
+                experience?.map((item) => {
                   if (item.id === exp.id) {
                     return {
                       ...item,
@@ -123,10 +123,10 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               label="Company Name"
               variant="filled"
               required
-              value={exp.company}
+              value={exp?.company}
               onChange={(e) => {
                 setExperience(
-                  experience.map((item) => {
+                  experience?.map((item) => {
                     if (item.id === exp.id) {
                       return {
                         ...item,
@@ -146,10 +146,10 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               label="Working Location"
               variant="filled"
               required
-              value={exp.location}
+              value={exp?.location}
               onChange={(e) => {
                 setExperience(
-                  experience.map((item) => {
+                  experience?.map((item) => {
                     if (item.id === exp.id) {
                       return {
                         ...item,
@@ -178,10 +178,10 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               label="Start Date"
               variant="filled"
               required
-              value={exp.start_date}
+              value={exp?.start_date}
               onChange={(e) => {
                 setExperience(
-                  experience.map((item) => {
+                  experience?.map((item) => {
                     if (item.id === exp.id) {
                       return {
                         ...item,
@@ -201,10 +201,10 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               label="End Date"
               variant="filled"
               required
-              value={exp.end_date}
+              value={exp?.end_date}
               onChange={(e) => {
                 setExperience(
-                  experience.map((item) => {
+                  experience?.map((item) => {
                     if (item.id === exp.id) {
                       return {
                         ...item,
@@ -230,7 +230,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
             }}
           >
             <Text>Write Description about your work experience</Text>
-            {exp.description.length <= 5 && (
+            {exp?.description?.length <= 5 && (
               <Tooltip label="Add Description Line" withArrow>
                 <ActionIcon
                   color="gray"
@@ -239,7 +239,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                   variant="light"
                   onClick={() => {
                     setExperience(
-                      experience.map((item) => {
+                      experience?.map((item) => {
                         if (item.id === exp.id) {
                           return {
                             ...item,
@@ -256,7 +256,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
               </Tooltip>
             )}
           </Box>
-          {exp.description.map((desc, index) => (
+          {exp?.description?.map((desc, index) => (
             <Box
               sx={{
                 display: "flex",
@@ -275,10 +275,10 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                 } (Eg. Worked on a project to build a website for a client)`}
                 variant="filled"
                 required
-                value={exp.description[index]}
+                value={exp?.description[index]}
                 onChange={(e) => {
                   setExperience(
-                    experience.map((item) => {
+                    experience?.map((item) => {
                       if (item.id === exp.id) {
                         return {
                           ...item,
@@ -295,7 +295,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                   );
                 }}
               />
-              {exp.description.length > 1 && (
+              {exp?.description?.length > 1 && (
                 <Tooltip label="Remove Description Line" withArrow>
                   <ActionIcon
                     color="red"
@@ -304,7 +304,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
                     variant="light"
                     onClick={() => {
                       setExperience(
-                        experience.map((item) => {
+                        experience?.map((item) => {
                           if (item.id === exp.id) {
                             return {
                               ...item,
