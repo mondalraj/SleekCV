@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import PDFResume from "./components/PDFResume";
@@ -19,14 +19,28 @@ import PDFResume from "./components/PDFResume";
 export default function Home() {
   const [PDFPreviewOpened, setPDFPreviewOpened] = useState(false);
   const [filename, setFilename] = useState("");
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    linkedin: string;
+    github: string;
+  }>({
     name: "",
     email: "",
     phone: "",
     linkedin: "",
     github: "",
   });
-  const [education, setEducation] = useState([
+  const [education, setEducation] = useState<
+    {
+      id: number;
+      institution: string;
+      title: string;
+      location: string;
+      period: string;
+    }[]
+  >([
     {
       id: 1,
       institution: "",
@@ -35,6 +49,13 @@ export default function Home() {
       period: "",
     },
   ]);
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <>
       <Drawer
@@ -393,20 +414,24 @@ export default function Home() {
             >
               Preview Resume
             </Button>
-            <Button color="green" radius={"xs"} variant="filled">
-              <PDFDownloadLink
-                document={<PDFResume profile={profile} education={education} />}
-                fileName={filename || "resume.pdf"}
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                }}
-              >
-                {({ blob, url, loading, error }) =>
-                  loading ? "Loading document..." : "Download Resume"
-                }
-              </PDFDownloadLink>
-            </Button>
+            {isClient && (
+              <Button color="green" radius={"xs"} variant="filled">
+                <PDFDownloadLink
+                  document={
+                    <PDFResume profile={profile} education={education} />
+                  }
+                  fileName={filename || "resume.pdf"}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                  }}
+                >
+                  {({ blob, url, loading, error }) =>
+                    loading ? "Loading document..." : "Download Resume"
+                  }
+                </PDFDownloadLink>
+              </Button>
+            )}
           </Box>
         </form>
       </Container>

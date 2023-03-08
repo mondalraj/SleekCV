@@ -36,7 +36,7 @@ const PDFResume = ({ profile, education }: IProps) => {
               marginBottom: 5,
             }}
           >
-            {profile.name || "No Name"}
+            {profile?.name || "No Name"}
           </Text>
           <View
             style={{
@@ -56,9 +56,9 @@ const PDFResume = ({ profile, education }: IProps) => {
                 paddingRight: 5,
                 borderRight: "1px solid gray",
               }}
-              src={`tel:${profile.phone}`}
+              src={`tel:${profile?.phone}`}
             >
-              {profile.phone || "No Phone"}
+              {profile?.phone || "No Phone"}
             </Link>
             <Link
               style={{
@@ -68,9 +68,9 @@ const PDFResume = ({ profile, education }: IProps) => {
                 paddingRight: 5,
                 borderRight: "1px solid gray",
               }}
-              src={`mailto:${profile.email}`}
+              src={`mailto:${profile?.email}`}
             >
-              {profile.email || "No Email"}
+              {profile?.email || "No Email"}
             </Link>
             <Link
               style={{
@@ -80,9 +80,9 @@ const PDFResume = ({ profile, education }: IProps) => {
                 paddingRight: 5,
                 borderRight: "1px solid gray",
               }}
-              src={profile.linkedin}
+              src={profile?.linkedin}
             >
-              {profile.linkedin.replace("https://www.", "") || "No LinkedIn"}
+              {profile?.linkedin.replace("https://www.", "") || "No LinkedIn"}
             </Link>
             <Link
               style={{
@@ -91,9 +91,9 @@ const PDFResume = ({ profile, education }: IProps) => {
                 paddingBottom: 1,
                 paddingRight: 5,
               }}
-              src={profile.github}
+              src={profile?.github}
             >
-              {profile.github.replace("https://", "") || "No Github/Portfolio"}
+              {profile?.github.replace("https://", "") || "No Github/Portfolio"}
             </Link>
           </View>
         </View>
@@ -114,7 +114,7 @@ const PDFResume = ({ profile, education }: IProps) => {
               paddingHorizontal: 5,
             }}
           >
-            {education.map((edu, index) => (
+            {education?.map((edu, index) => (
               <View
                 style={{
                   marginVertical: 5,
@@ -130,10 +130,10 @@ const PDFResume = ({ profile, education }: IProps) => {
                   }}
                 >
                   <Text style={{ fontSize: 10, fontWeight: 700 }}>
-                    {edu.institution || "No Institution"}
+                    {edu?.institution || "No Institution"}
                   </Text>
                   <Text style={{ fontSize: 10, fontWeight: 400 }}>
-                    {edu.location || "No Location"}
+                    {edu?.location || "No Location"}
                   </Text>
                 </View>
                 <View
@@ -147,8 +147,8 @@ const PDFResume = ({ profile, education }: IProps) => {
                     fontWeight: "extrabold",
                   }}
                 >
-                  <Text>{edu.title || "No Title"}</Text>
-                  <Text>{edu.period || "No Period"}</Text>
+                  <Text>{edu?.title || "No Title"}</Text>
+                  <Text>{edu?.period || "No Period"}</Text>
                 </View>
               </View>
             ))}
