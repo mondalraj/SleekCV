@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import IEducationDetails from "@/types/educationDetailsType";
 import IExperienceDetails from "@/types/experienceDetailsType";
 import IProfileDetails from "@/types/profileDetailsType";
@@ -11,7 +12,9 @@ import {
   ScrollArea,
   TextInput,
 } from "@mantine/core";
+import { Prisma } from "@prisma/client";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import "react-phone-number-input/style.css";
 import EducationSection from "./components/CVFormComponents/EducationSection";
@@ -21,7 +24,11 @@ import ProjectSection from "./components/CVFormComponents/ProjectSection";
 import TechnicalSkillsSection from "./components/CVFormComponents/TechnicalSkillsSection";
 import PDFResume from "./components/PDFResume";
 
-export default function Home() {
+export default function Home({
+  data,
+}: {
+  data: Prisma.ResumeGetPayload<{}>[];
+}) {
   const [PDFPreviewOpened, setPDFPreviewOpened] = useState(false);
   const [filename, setFilename] = useState("");
   const [profile, setProfile] = useState<IProfileDetails>({
@@ -200,3 +207,19 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const resumes = await prisma.resume.findMany();
+
+  const serializedResumes = resumes.map((resume) => {
+    return {
+      ...resume,
+      createdAt: resume.createdAt.toISOString(),
+      updatedAt: resume.updatedAt.toISOString(),
+    };
+  });
+
+  return {
+    props: { data: serializedResumes },
+  };
+};

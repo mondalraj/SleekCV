@@ -5,7 +5,7 @@ Features of SleekCV
 - Easily Access your CVs from anywhere
 - Generating PDF from Simple Form
 - Customizing order of sections in your CV
-- Google Authentication Security (Easy Login)
+- Google Authentication Security (Easy Login) - NextAuth (Integration with Prisma)
 - 2 different CV templates
 - 2 different Font Family (Times Roman and Helvetica)
 - Integrating GPT-3 API for generating CVs and Suggesting a better CV
