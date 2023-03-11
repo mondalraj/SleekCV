@@ -13,5 +13,19 @@ export default async function handler(
     } catch (error) {
       res.status(500).json(error);
     }
+  } else if (req.method === "POST") {
+    // try {
+    //   const { title } = req.body;
+    //   console.log(title);
+    //   const resume = await prisma.resume.create({
+    //     data: {
+    //       title,
+    //     },
+    //   });
+    //   res.status(200).json({ data: resume });
+    // } catch (error) {
+    //   res.status(500).json(error);
+    // }
+    res.status(200).json({ data: "Hello" });
   }
 }
