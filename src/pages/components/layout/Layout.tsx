@@ -14,7 +14,7 @@ import { ReactNode, useState } from "react";
 
 import { createStyles, getStylesRef } from "@mantine/core";
 import { IconFilePlus, IconHistory, IconLogout } from "@tabler/icons-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -89,7 +89,7 @@ const Layout = ({
     <Link
       href={item.link}
       className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
+        [classes.linkActive]: item.label === currentPage,
       })}
       key={item.label}
       onClick={(event) => {
@@ -145,11 +145,7 @@ const Layout = ({
               </Box>
             </a>
 
-            <a
-              href="#"
-              className={classes.link}
-              onClick={(event) => event.preventDefault()}
-            >
+            <a href="#" className={classes.link} onClick={() => signOut()}>
               <IconLogout className={classes.linkIcon} stroke={1.5} />
               <span>Logout</span>
             </a>

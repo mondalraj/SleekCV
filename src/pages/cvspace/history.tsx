@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 
 const history = () => {
   return (
-    <Layout>
+    <Layout currentPage="History">
       <Container>History</Container>
     </Layout>
   );

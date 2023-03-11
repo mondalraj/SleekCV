@@ -12,6 +12,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useEffect, useState } from "react";
 import "react-phone-number-input/style.css";
 import EducationSection from "../components/CVFormComponents/EducationSection";
@@ -23,7 +24,6 @@ import PDFResume from "../components/PDFResume";
 import Layout from "../components/layout/Layout";
 
 export default function CVSpace() {
-  // const { data: session } = useSession({ required: true });
   const [PDFPreviewOpened, setPDFPreviewOpened] = useState(false);
   const [filename, setFilename] = useState("");
   const [profile, setProfile] = useState<IProfileDetails>({
@@ -92,8 +92,10 @@ export default function CVSpace() {
         }),
       });
       const data = await response.json();
+      Notify.success("Resume saved successfully!");
       console.log(data);
     } catch (error) {
+      Notify.failure("Something went wrong! Please try again later.");
       console.log(error);
     }
   };
@@ -133,7 +135,7 @@ export default function CVSpace() {
           </PDFViewer>
         </ScrollArea>
       </Drawer>
-      <Layout>
+      <Layout currentPage="Build New">
         <Container>
           <form
             style={{
@@ -218,16 +220,16 @@ export default function CVSpace() {
                   </PDFDownloadLink>
                 </Button>
               )}
-              {/* <Button
-              color="blue"
-              radius={"xs"}
-              variant="outline"
-              onClick={() => {
-                handleCreateResume();
-              }}
-            >
-              Add
-            </Button> */}
+              <Button
+                color="blue"
+                radius={"xs"}
+                variant="outline"
+                onClick={() => {
+                  handleCreateResume();
+                }}
+              >
+                Add
+              </Button>
             </Box>
           </form>
         </Container>
