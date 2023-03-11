@@ -133,7 +133,9 @@ const Home = () =>
                   color="dark"
                   variant="filled"
                   onClick={() => {
-                    signIn("github");
+                    signIn("github").then((res) => {
+                      window.location.href = "/cvspace";
+                    });
                   }}
                 >
                   Get Started With Github

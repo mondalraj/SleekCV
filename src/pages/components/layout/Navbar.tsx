@@ -64,7 +64,9 @@ const Navbar = () => {
             color="dark"
             variant="default"
             onClick={() => {
-              signIn("github");
+              signIn("github").then((res) => {
+                window.location.href = "/cvspace";
+              });
             }}
           >
             Sign In With Github

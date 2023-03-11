@@ -145,7 +145,15 @@ const Layout = ({
               </Box>
             </a>
 
-            <a href="#" className={classes.link} onClick={() => signOut()}>
+            <a
+              href="#"
+              className={classes.link}
+              onClick={() => {
+                signOut().then(() => {
+                  window.location.href = "/";
+                });
+              }}
+            >
               <IconLogout className={classes.linkIcon} stroke={1.5} />
               <span>Logout</span>
             </a>
