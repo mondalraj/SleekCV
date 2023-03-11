@@ -12,18 +12,18 @@ import {
   TextInput,
 } from "@mantine/core";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import "react-phone-number-input/style.css";
-import EducationSection from "./components/CVFormComponents/EducationSection";
-import ExperienceSection from "./components/CVFormComponents/ExperienceSection";
-import ProfileSection from "./components/CVFormComponents/ProfileSection";
-import ProjectSection from "./components/CVFormComponents/ProjectSection";
-import TechnicalSkillsSection from "./components/CVFormComponents/TechnicalSkillsSection";
-import PDFResume from "./components/PDFResume";
+import EducationSection from "../components/CVFormComponents/EducationSection";
+import ExperienceSection from "../components/CVFormComponents/ExperienceSection";
+import ProfileSection from "../components/CVFormComponents/ProfileSection";
+import ProjectSection from "../components/CVFormComponents/ProjectSection";
+import TechnicalSkillsSection from "../components/CVFormComponents/TechnicalSkillsSection";
+import PDFResume from "../components/PDFResume";
+import Layout from "../components/layout/Layout";
 
 export default function CVSpace() {
-  const { data: session } = useSession({ required: true });
+  // const { data: session } = useSession({ required: true });
   const [PDFPreviewOpened, setPDFPreviewOpened] = useState(false);
   const [filename, setFilename] = useState("");
   const [profile, setProfile] = useState<IProfileDetails>({
@@ -133,88 +133,92 @@ export default function CVSpace() {
           </PDFViewer>
         </ScrollArea>
       </Drawer>
-      <Container>
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 14,
-            marginTop: 20,
-            marginBottom: 20,
-          }}
-          autoComplete="off"
-        >
-          <ProfileSection profile={profile} setProfile={setProfile} />
-
-          <EducationSection education={education} setEducation={setEducation} />
-
-          <ExperienceSection
-            experience={experience}
-            setExperience={setExperience}
-          />
-
-          <ProjectSection projects={projects} setProjects={setProjects} />
-
-          <TechnicalSkillsSection skills={skills} setSkills={setSkills} />
-
-          <Box
-            sx={{
+      <Layout>
+        <Container>
+          <form
+            style={{
               display: "flex",
-              justifyContent: "flex-end",
-              gap: "1rem",
-              paddingTop: "1rem",
-              marginTop: "2rem",
-              borderTop: "1px solid #eaeaea",
+              flexDirection: "column",
+              gap: 14,
+              marginTop: 20,
+              marginBottom: 20,
             }}
+            autoComplete="off"
           >
-            <TextInput
-              sx={{
-                width: "100%",
-              }}
-              placeholder="Filename for downloading (Eg. resume.pdf)"
-              variant="filled"
-              value={filename}
-              onChange={(e) => {
-                setFilename(e.target.value);
-              }}
+            <ProfileSection profile={profile} setProfile={setProfile} />
+
+            <EducationSection
+              education={education}
+              setEducation={setEducation}
             />
-            <Button
-              color="blue"
-              radius={"xs"}
-              variant="outline"
-              onClick={() => {
-                console.log("profile", profile);
-                console.log("education", education);
-                setPDFPreviewOpened(true);
+
+            <ExperienceSection
+              experience={experience}
+              setExperience={setExperience}
+            />
+
+            <ProjectSection projects={projects} setProjects={setProjects} />
+
+            <TechnicalSkillsSection skills={skills} setSkills={setSkills} />
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "1rem",
+                paddingTop: "1rem",
+                marginTop: "2rem",
+                borderTop: "1px solid #eaeaea",
               }}
             >
-              Preview Resume
-            </Button>
-            {isClient && (
-              <Button color="green" radius={"xs"} variant="filled">
-                <PDFDownloadLink
-                  document={
-                    <PDFResume
-                      profile={profile}
-                      education={education}
-                      experience={experience}
-                      skills={skills}
-                      projects={projects}
-                    />
-                  }
-                  fileName={filename || "resume.pdf"}
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                  }}
-                >
-                  {({ blob, url, loading, error }) =>
-                    loading ? "Loading document..." : "Download Resume"
-                  }
-                </PDFDownloadLink>
+              <TextInput
+                sx={{
+                  width: "100%",
+                }}
+                placeholder="Filename for downloading (Eg. resume.pdf)"
+                variant="filled"
+                value={filename}
+                onChange={(e) => {
+                  setFilename(e.target.value);
+                }}
+              />
+              <Button
+                color="blue"
+                radius={"xs"}
+                variant="outline"
+                onClick={() => {
+                  console.log("profile", profile);
+                  console.log("education", education);
+                  setPDFPreviewOpened(true);
+                }}
+              >
+                Preview Resume
               </Button>
-            )}
-            {/* <Button
+              {isClient && (
+                <Button color="green" radius={"xs"} variant="filled">
+                  <PDFDownloadLink
+                    document={
+                      <PDFResume
+                        profile={profile}
+                        education={education}
+                        experience={experience}
+                        skills={skills}
+                        projects={projects}
+                      />
+                    }
+                    fileName={filename || "resume.pdf"}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                  >
+                    {({ blob, url, loading, error }) =>
+                      loading ? "Loading document..." : "Download Resume"
+                    }
+                  </PDFDownloadLink>
+                </Button>
+              )}
+              {/* <Button
               color="blue"
               radius={"xs"}
               variant="outline"
@@ -224,9 +228,10 @@ export default function CVSpace() {
             >
               Add
             </Button> */}
-          </Box>
-        </form>
-      </Container>
+            </Box>
+          </form>
+        </Container>
+      </Layout>
     </>
   );
 }

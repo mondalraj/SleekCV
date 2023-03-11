@@ -164,8 +164,6 @@ const Home = () =>
             )}
           </Box>
         </Box>
-        {/* <p>Welcome, {session.user.name}</p>
-      Signed in as {session.user.email} <br /> */}
       </Box>
     );
   };
