@@ -2,7 +2,6 @@ import {
   AppShell,
   Box,
   Burger,
-  Container,
   Header,
   Image,
   MediaQuery,
@@ -202,7 +201,7 @@ const Layout = ({
         </Header>
       }
     >
-      <Container>{children}</Container>
+      {children}
     </AppShell>
   );
 };

@@ -43,17 +43,20 @@ export default async function handler(
         experience,
         projects,
         skills,
+        title,
       }: {
         profile: IProfileDetails;
         education: Omit<IEducationDetails, "id">[];
         experience: Omit<IExperienceDetails, "id">[];
         projects: Omit<IProjectsType, "id">[];
         skills: ISkillsType;
+        title: string;
       } = req.body;
 
       const resume = await prisma.resume.create({
         data: {
           userId: prismaUser.id,
+          title,
           profile: {
             create: profile,
           },

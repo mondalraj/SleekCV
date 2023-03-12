@@ -80,7 +80,8 @@ export default function CVSpace() {
     setIsClient(true);
   }, []);
 
-  const handleCreateResume = async () => {
+  const handleCreateResume = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     try {
       const response = await fetch("/api/resume", {
         method: "POST",
@@ -104,6 +105,7 @@ export default function CVSpace() {
             return rest;
           }),
           skills,
+          title: filename,
         }),
       });
       const data = await response.json();
@@ -111,7 +113,7 @@ export default function CVSpace() {
       if (data.data) {
         Notify.success("Resume saved successfully!");
         console.log(data);
-        window.location.href = `/cvspace/history`;
+        window.location.href = "/cvspace/history";
       }
     } catch (error) {
       Notify.failure("Something went wrong! Please try again later.");
@@ -197,6 +199,7 @@ export default function CVSpace() {
                 sx={{
                   width: "100%",
                 }}
+                required
                 placeholder="Filename for downloading (Eg. resume.pdf)"
                 variant="filled"
                 value={filename}

@@ -62,6 +62,7 @@ model Resume {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  title     String
   profile   Profile?  
   education Education[]
   experience Experience[]
