@@ -88,12 +88,31 @@ export default function CVSpace() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          title: profile.name,
+          profile,
+          education: education.map((edu) => {
+            const { id, ...rest } = edu;
+            return rest;
+          }),
+
+          experience: experience.map((exp) => {
+            const { id, ...rest } = exp;
+            return rest;
+          }),
+
+          projects: projects.map((project) => {
+            const { id, ...rest } = project;
+            return rest;
+          }),
+          skills,
         }),
       });
       const data = await response.json();
-      Notify.success("Resume saved successfully!");
-      console.log(data);
+
+      if (data.data) {
+        Notify.success("Resume saved successfully!");
+        console.log(data);
+        window.location.href = `/cvspace/history`;
+      }
     } catch (error) {
       Notify.failure("Something went wrong! Please try again later.");
       console.log(error);
@@ -146,6 +165,7 @@ export default function CVSpace() {
               marginBottom: 20,
             }}
             autoComplete="off"
+            onSubmit={handleCreateResume}
           >
             <ProfileSection profile={profile} setProfile={setProfile} />
 
@@ -220,15 +240,8 @@ export default function CVSpace() {
                   </PDFDownloadLink>
                 </Button>
               )}
-              <Button
-                color="blue"
-                radius={"xs"}
-                variant="outline"
-                onClick={() => {
-                  handleCreateResume();
-                }}
-              >
-                Add
+              <Button color="blue" radius={"xs"} variant="filled" type="submit">
+                Save
               </Button>
             </Box>
           </form>

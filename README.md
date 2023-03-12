@@ -5,10 +5,9 @@ Features of SleekCV
 - Easily Access your CVs from anywhere
 - Generating PDF from Simple Form
 - Customizing order of sections in your CV
-- Google Authentication Security (Easy Login) - NextAuth (Integration with Prisma)
+- Github Authentication (Easy Login) - NextAuth (Integration with Prisma)
 - 2 different CV templates
 - 2 different Font Family (Times Roman and Helvetica)
-- Integrating GPT-3 API for generating CVs and Suggesting a better CV
 
 ### Database Schema of CV
 
@@ -64,3 +63,25 @@ Features of SleekCV
     }[],
 }
 ```
+
+### How to run
+
+- Clone the repo
+- Install dependencies
+- Create a .env file in the root directory and add the following variables
+
+  - DATABASE_URL
+  - NEXTAUTH_URL
+  - GITHUB_ID
+  - GITHUB_SECRET
+  - JWT_SECRET
+
+- Run the following commands
+
+  - yarn
+  - yarn dev
+  - yarn prisma migrate dev
+  - yarn prisma generate
+
+- To check the database schema, run the following command
+  - yarn prisma studio

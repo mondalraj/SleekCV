@@ -57,10 +57,78 @@ model VerificationToken {
 }
 
 model Resume {
-  id        Int      @default(autoincrement()) @id
-  title     String
+   id        String      @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  profile   Profile?  
+  education Education[]
+  experience Experience[]
+  project Project[]
+  skill Skill?
+}
+
+model Profile {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  email     String
+  phone     String
+  linkedin  String
+  github    String
+  resumeId  String      @unique
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+}
+
+model Education {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  institution    String
+  title    String
+  location     String
+  period     String
+  resumeId  String 
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+}
+
+model Experience {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title    String
+  company    String
+  location     String
+  start_date     String
+  end_date     String
+  description     String[]
+  resumeId  String 
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+}
+
+model Project {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title    String
+  description    String[]
+  link     String
+  duration     String
+  tech_stack     String[]
+  resumeId  String 
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+}
+
+model Skill {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  languages    String[]
+  frameworks_libraries    String[]
+  databases    String[]
+  developer_tools    String[]
+  resumeId  String @unique
+  resume    Resume   @relation(fields: [resumeId], references: [id])
 }

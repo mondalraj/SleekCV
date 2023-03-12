@@ -89,7 +89,7 @@ const ExperienceSection = ({ experience, setExperience }: IProps) => {
           </Box>
           <TextInput
             placeholder="Eg. software engineer"
-            label="Title of Qualification"
+            label="Title of Experience"
             variant="filled"
             required
             value={exp?.title}
