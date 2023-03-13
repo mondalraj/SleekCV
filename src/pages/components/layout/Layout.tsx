@@ -1,17 +1,19 @@
 import {
   AppShell,
   Box,
-  Burger,
-  Header,
+  Group,
   Image,
-  MediaQuery,
+  Modal,
   Navbar,
+  Text,
+  rem,
   useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
 import { ReactNode, useState } from "react";
 
 import { createStyles, getStylesRef } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { IconFilePlus, IconHistory, IconLogout } from "@tabler/icons-react";
 import { signOut, useSession } from "next-auth/react";
 
@@ -38,6 +40,14 @@ const useStyles = createStyles((theme) => ({
         color: theme.colorScheme === "dark" ? theme.white : theme.black,
       },
     },
+  },
+
+  header: {
+    paddingBottom: theme.spacing.md,
+    marginBottom: `calc(${theme.spacing.md} * 1.5)`,
+    borderBottom: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+    }`,
   },
 
   linkIcon: {
@@ -84,6 +94,10 @@ const Layout = ({
   const [active, setActive] = useState("Build New");
   const { classes, cx } = useStyles();
 
+  const [showMobileModal, setShowMobileModal] = useState(true);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const links = data.map((item) => (
     <Link
       href={item.link}
@@ -114,7 +128,26 @@ const Layout = ({
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
         >
-          <Navbar.Section grow>{links}</Navbar.Section>
+          <Navbar.Section grow>
+            <Group className={classes.header} position="apart">
+              <Box
+                sx={{
+                  fontSize: "1.3rem",
+                }}
+              >
+                <Link
+                  href="/"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                  }}
+                >
+                  SleeK CV
+                </Link>
+              </Box>
+            </Group>
+            {links}
+          </Navbar.Section>
 
           <Navbar.Section>
             <a
@@ -159,48 +192,19 @@ const Layout = ({
           </Navbar.Section>
         </Navbar>
       }
-      header={
-        <Header
-          sx={{
-            background: theme.colors.dark[8],
-            color: "white",
-            borderBottom: `1px solid ${theme.colors.dark[7]}`,
-          }}
-          height={{ base: 40, md: 50 }}
-          p="md"
-        >
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-
-            <Box
-              sx={{
-                fontSize: "1.3rem",
-              }}
-            >
-              <Link
-                href="/"
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                }}
-              >
-                SleeK CV
-              </Link>
-            </Box>
-          </div>
-        </Header>
-      }
     >
+      {isMobile && (
+        <Modal
+          opened={showMobileModal}
+          onClose={() => setShowMobileModal(false)}
+          centered
+        >
+          <Text pt={20} pb={30} px={20} size="lg">
+            Please Open SleekCV Resume Builder App on desktop or laptop for
+            better experience.
+          </Text>
+        </Modal>
+      )}
       {children}
     </AppShell>
   );
