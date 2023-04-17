@@ -4,6 +4,7 @@ interface IProjectsType {
   description: string[];
   duration: string;
   link: string;
+  githubLink: string;
   tech_stack: string[];
 }
 

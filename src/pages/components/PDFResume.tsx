@@ -54,11 +54,12 @@ const PDFResume = ({
           >
             <Link
               style={{
-                color: "black",
-                textDecoration: "none",
+                // textDecoration: "none",
                 paddingBottom: 1,
                 paddingRight: 5,
                 borderRight: "1px solid gray",
+                color: "black",
+                textDecoration: "underline",
               }}
               src={`tel:${profile?.phone}`}
             >
@@ -66,11 +67,12 @@ const PDFResume = ({
             </Link>
             <Link
               style={{
-                color: "black",
-                textDecoration: "none",
+                // textDecoration: "none",
                 paddingBottom: 1,
                 paddingRight: 5,
                 borderRight: "1px solid gray",
+                color: "black",
+                textDecoration: "underline",
               }}
               src={`mailto:${profile?.email}`}
             >
@@ -78,11 +80,12 @@ const PDFResume = ({
             </Link>
             <Link
               style={{
-                color: "black",
-                textDecoration: "none",
+                // textDecoration: "none",
                 paddingBottom: 1,
                 paddingRight: 5,
                 borderRight: "1px solid gray",
+                color: "black",
+                textDecoration: "underline",
               }}
               src={profile?.linkedin}
             >
@@ -90,10 +93,11 @@ const PDFResume = ({
             </Link>
             <Link
               style={{
-                color: "black",
-                textDecoration: "none",
+                // textDecoration: "none",
                 paddingBottom: 1,
                 paddingRight: 5,
+                color: "black",
+                textDecoration: "underline",
               }}
               src={profile?.github}
             >
@@ -354,6 +358,47 @@ const PDFResume = ({
                     </Text>
                   </View>
                 ))}
+
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: 5,
+                    fontSize: 10,
+                    marginTop: 5,
+                  }}
+                >
+                  {proj?.link && (
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        paddingBottom: 1,
+                        paddingRight: 5,
+                        borderRight: proj?.githubLink
+                          ? "1px solid gray"
+                          : "none",
+                      }}
+                      src={proj?.link}
+                    >
+                      View Live
+                    </Link>
+                  )}
+
+                  {proj?.githubLink && (
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        paddingBottom: 1,
+                        paddingRight: 5,
+                      }}
+                      src={proj?.githubLink}
+                    >
+                      View Code on Github
+                    </Link>
+                  )}
+                </View>
               </View>
             ))}
           </View>

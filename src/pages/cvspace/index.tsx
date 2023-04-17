@@ -63,6 +63,7 @@ export default function CVSpace() {
       description: [""],
       duration: "",
       link: "",
+      githubLink: "",
       tech_stack: [""],
     },
   ]);

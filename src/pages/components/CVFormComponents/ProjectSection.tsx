@@ -59,6 +59,7 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
                   description: [""],
                   duration: "",
                   link: "",
+                  githubLink: "",
                   tech_stack: [""],
                 },
               ]);
@@ -157,6 +158,26 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               );
             }}
           />
+          <TextInput
+            placeholder="Eg. Aug 2019 - Dec 2019"
+            label="Project Duration"
+            variant="filled"
+            required
+            value={proj?.duration}
+            onChange={(e) => {
+              setProjects(
+                projects?.map((item) => {
+                  if (item.id === proj.id) {
+                    return {
+                      ...item,
+                      duration: e.target.value,
+                    };
+                  }
+                  return item;
+                })
+              );
+            }}
+          />
           <Box
             sx={{
               display: "flex",
@@ -169,18 +190,18 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               sx={{
                 width: "50%",
               }}
-              placeholder="Eg. Aug 2019 - Dec 2019"
-              label="Project Duration"
+              placeholder="Live Deployed Link of your project"
+              label="Project Link"
               variant="filled"
-              required
-              value={proj?.duration}
+              type="url"
+              value={proj?.link}
               onChange={(e) => {
                 setProjects(
                   projects?.map((item) => {
                     if (item.id === proj.id) {
                       return {
                         ...item,
-                        duration: e.target.value,
+                        link: e.target.value,
                       };
                     }
                     return item;
@@ -192,19 +213,18 @@ const ProjectSection = ({ projects, setProjects }: IProps) => {
               sx={{
                 width: "50%",
               }}
-              placeholder="Live Link or Github Link of your project"
-              label="Project Link"
+              placeholder="Github Link of your project"
+              label="Github Link"
               variant="filled"
               type="url"
-              required
-              value={proj?.link}
+              value={proj?.githubLink}
               onChange={(e) => {
                 setProjects(
                   projects?.map((item) => {
                     if (item.id === proj.id) {
                       return {
                         ...item,
-                        link: e.target.value,
+                        githubLink: e.target.value,
                       };
                     }
                     return item;
