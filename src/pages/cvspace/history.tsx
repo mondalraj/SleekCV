@@ -216,7 +216,7 @@ const History = () => {
       </Drawer>
       <Container size={"xl"}>
         <Text size={"xl"} mt={20}>
-          View all Prafceast Resumes
+          View all Past Resumes
         </Text>
 
         <Table highlightOnHover mt={20}>
