@@ -1,5 +1,5 @@
-import { Box, Button, Image } from "@mantine/core";
-import { IconBrandGithubFilled } from "@tabler/icons-react";
+import { ActionIcon, Box, Button, Image, Tooltip } from "@mantine/core";
+import { IconBrandGithub, IconBrandGithubFilled } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
@@ -72,6 +72,17 @@ const Navbar = () => {
             Sign In With Github
           </Button>
         )}
+        <Tooltip label="Contribute on Github">
+          <ActionIcon
+            radius="xl"
+            variant="outline"
+            size="lg"
+            component="a"
+            href="https://github.com/mondalraj/SleekCV"
+          >
+            <IconBrandGithub color="#fff" />
+          </ActionIcon>
+        </Tooltip>
       </Box>
     </Box>
   );
