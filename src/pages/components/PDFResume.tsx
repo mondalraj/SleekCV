@@ -89,7 +89,7 @@ const PDFResume = ({
               }}
               src={profile?.linkedin}
             >
-              {profile?.linkedin.replace("https://www.", "") || "No LinkedIn"}
+              {profile?.linkedin?.replace("https://www.", "") || "No LinkedIn"}
             </Link>
             <Link
               style={{
@@ -101,7 +101,8 @@ const PDFResume = ({
               }}
               src={profile?.github}
             >
-              {profile?.github.replace("https://", "") || "No Github/Portfolio"}
+              {profile?.github?.replace("https://", "") ||
+                "No Github/Portfolio"}
             </Link>
           </View>
         </View>

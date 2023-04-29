@@ -16,8 +16,14 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import { IconDownload, IconEye, IconTrash } from "@tabler/icons-react";
+import {
+  IconCopy,
+  IconDownload,
+  IconEye,
+  IconTrash,
+} from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { Notify } from "notiflix";
 import { useEffect, useState } from "react";
 import PDFResume from "../components/PDFResume";
@@ -47,6 +53,8 @@ const History = () => {
   }>();
 
   const { data: session } = useSession();
+
+  const router = useRouter();
 
   useEffect(() => {
     const getAllResumes = async () => {
@@ -80,10 +88,6 @@ const History = () => {
       <td>
         {new Date(res?.createdAt).toDateString().slice(4)},{" "}
         {new Date(res?.createdAt).toLocaleTimeString().slice(0, -3)}
-      </td>
-      <td>
-        {new Date(res?.updatedAt).toDateString().slice(4)},{" "}
-        {new Date(res?.updatedAt).toLocaleTimeString().slice(0, -3)}
       </td>
       <td
         style={{
@@ -145,6 +149,19 @@ const History = () => {
             )}
           </PDFDownloadLink>
 
+          <Tooltip label="Duplicate Resume" position="top">
+            <ActionIcon
+              size={"sm"}
+              color="blue"
+              variant="outline"
+              onClick={() => {
+                router.push(`/cvspace/${res.id}`);
+              }}
+            >
+              <IconCopy size={16} />
+            </ActionIcon>
+          </Tooltip>
+
           <Tooltip label="Delete Resume" position="top">
             <ActionIcon
               size={"sm"}
@@ -199,14 +216,13 @@ const History = () => {
       </Drawer>
       <Container size={"xl"}>
         <Text size={"xl"} mt={20}>
-          View all past Resumes
+          View all Prafceast Resumes
         </Text>
 
         <Table highlightOnHover mt={20}>
           <thead>
             <tr>
               <th>Created At</th>
-              <th>Last Updated</th>
               <th>Resume Title</th>
               <th># Projects</th>
               <th># Experiences</th>

@@ -53,6 +53,8 @@ export default async function handler(
         title: string;
       } = req.body;
 
+      // console.log(req.body);
+
       const resume = await prisma.resume.create({
         data: {
           userId: prismaUser.id,
