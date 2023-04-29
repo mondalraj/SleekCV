@@ -80,7 +80,7 @@ model Profile {
   linkedin  String
   github    String
   resumeId  String      @unique
-  resume    Resume   @relation(fields: [resumeId], references: [id])
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }
 
 model Education {
@@ -92,7 +92,7 @@ model Education {
   location     String
   period     String
   resumeId  String 
-  resume    Resume   @relation(fields: [resumeId], references: [id])
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }
 
 model Experience {
@@ -106,7 +106,7 @@ model Experience {
   end_date     String
   description     String[]
   resumeId  String 
-  resume    Resume   @relation(fields: [resumeId], references: [id])
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }
 
 model Project {
@@ -116,10 +116,11 @@ model Project {
   title    String
   description    String[]
   link     String
+  githubLink     String?
   duration     String
   tech_stack     String[]
   resumeId  String 
-  resume    Resume   @relation(fields: [resumeId], references: [id])
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }
 
 model Skill {
@@ -131,5 +132,5 @@ model Skill {
   databases    String[]
   developer_tools    String[]
   resumeId  String @unique
-  resume    Resume   @relation(fields: [resumeId], references: [id])
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }

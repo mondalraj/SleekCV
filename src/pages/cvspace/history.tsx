@@ -16,8 +16,9 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import { IconDownload, IconEye } from "@tabler/icons-react";
+import { IconDownload, IconEye, IconTrash } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
+import { Notify } from "notiflix";
 import { useEffect, useState } from "react";
 import PDFResume from "../components/PDFResume";
 import Layout from "../components/layout/Layout";
@@ -53,11 +54,26 @@ const History = () => {
       const data = await response.json();
 
       setResumes(data.data);
+      console.log(data.data);
       setLoading(false);
     };
 
     getAllResumes();
   }, [session]);
+
+  const handleDeleteResume = async (id: string) => {
+    const response = await fetch(`/api/resume/delete/${id}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.data) {
+      Notify.success("Resume deleted successfully.");
+      setResumes(resumes.filter((res) => res.id !== id));
+    } else {
+      Notify.failure("Resume deletion failed.");
+    }
+  };
 
   const rows = resumes?.map((res) => (
     <tr key={res.id}>
@@ -100,34 +116,46 @@ const History = () => {
               <IconEye size={16} />
             </ActionIcon>
           </Tooltip>
-          <Tooltip label="Download Resume" position="top">
-            <PDFDownloadLink
-              document={
-                <PDFResume
-                  profile={selectedResume?.profile as IProfileDetails}
-                  education={selectedResume?.education as IEducationDetails[]}
-                  experience={
-                    selectedResume?.experience as IExperienceDetails[]
-                  }
-                  skills={selectedResume?.skill as ISkillsType}
-                  projects={selectedResume?.project as IProjectsType[]}
-                />
-              }
-              fileName={res?.title || "resume.pdf"}
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-              onClick={() => {
-                setSelectedResume(res as any);
-              }}
-            >
-              {({ blob, url, loading, error }) => (
+
+          <PDFDownloadLink
+            document={
+              <PDFResume
+                profile={selectedResume?.profile as IProfileDetails}
+                education={selectedResume?.education as IEducationDetails[]}
+                experience={selectedResume?.experience as IExperienceDetails[]}
+                skills={selectedResume?.skill as ISkillsType}
+                projects={selectedResume?.project as IProjectsType[]}
+              />
+            }
+            fileName={res?.title || "resume.pdf"}
+            style={{
+              textDecoration: "none",
+              color: "white",
+            }}
+            onClick={() => {
+              setSelectedResume(res as any);
+            }}
+          >
+            {({ blob, url, loading, error }) => (
+              <Tooltip label="Download Resume" position="top">
                 <ActionIcon size={"sm"} color="blue" variant="outline">
                   <IconDownload size={16} />
                 </ActionIcon>
-              )}
-            </PDFDownloadLink>
+              </Tooltip>
+            )}
+          </PDFDownloadLink>
+
+          <Tooltip label="Delete Resume" position="top">
+            <ActionIcon
+              size={"sm"}
+              color="red"
+              variant="outline"
+              onClick={() => {
+                handleDeleteResume(res.id);
+              }}
+            >
+              <IconTrash size={16} />
+            </ActionIcon>
           </Tooltip>
         </Group>
       </td>

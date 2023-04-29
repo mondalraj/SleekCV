@@ -110,6 +110,7 @@ export default function CVSpace() {
         }),
       });
       const data = await response.json();
+      console.log(data);
 
       if (data.data) {
         Notify.success("Resume saved successfully!");
