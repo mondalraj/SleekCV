@@ -77,6 +77,7 @@ const Navbar = () => {
             radius="xl"
             variant="outline"
             size="lg"
+            target="_blank"
             component="a"
             href="https://github.com/mondalraj/SleekCV"
           >
