@@ -80,8 +80,14 @@ Features of SleekCV
 
   - yarn
   - yarn dev
-  - yarn prisma migrate dev
-  - yarn prisma generate
+  - yarn prisma migrate dev / npx prisma db push
+  - yarn prisma generate / npx prisma generate
 
 - To check the database schema, run the following command
   - yarn prisma studio
+
+Resources-
+
+- https://vercel.com/guides/nextjs-prisma-postgres#step-2-set-up-your-vercel-postgres-database
+
+- https://www.youtube.com/watch?v=9bV_x2jxLFQ
